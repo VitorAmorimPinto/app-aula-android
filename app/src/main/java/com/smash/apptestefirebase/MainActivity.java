@@ -35,16 +35,35 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 //        referencia.child cria um novo nó ou acessa um já existente
 //        o setValue atualiza ou cadastra o valor
+
     this.pegaUsuario();
 
 
     }
+    public void deslogarUsuario(){
+        usuario.signOut();
+    }
+    public void logarUsuario(){
+//        É igual o de cadastro porém muda para funcão signInWithEmailAndPassword
+        usuario.signInWithEmailAndPassword(
+                "vitor232596@gmail.com","ja12345")
+                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            Log.i("LogUser", "Sucesso ao logar usuario!" );
+                        }else{
+                            Log.i("LogUser", "Erro ao logar usuario!" );
+                        }
+                    }
+                });
+    }
     public void pegaUsuario(){
 //        Caso o usuario.getCurrentUser seja vazio significa que não existe usuario logado
         if( usuario.getCurrentUser() != null ){
-            Log.i("CreateUser", "Usuario logado!" );
+            Log.i("CurrentUser", "Usuario logado!" );
         }else {
-            Log.i("CreateUser", "Usuario nao logado!" );
+            Log.i("CurrentUser", "Usuario nao logado!" );
         }
     }
     public void criarUsuario(){
