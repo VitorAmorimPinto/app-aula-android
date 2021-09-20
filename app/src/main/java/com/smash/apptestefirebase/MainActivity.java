@@ -36,9 +36,17 @@ public class MainActivity extends AppCompatActivity {
 //        referencia.child cria um novo nó ou acessa um já existente
 //        o setValue atualiza ou cadastra o valor
 
-    this.pegaUsuario();
+    this.cadComIndentificadorUnico();
 
 
+    }
+
+    public void cadComIndentificadorUnico(){
+        Pessoa p = new Pessoa();
+        p.setNome("Vitor");
+        p.setSobrenome("Amorim");
+// O push permite criar um identificador unico para cada usuário
+        pessoas.push().setValue(p);
     }
     public void deslogarUsuario(){
         usuario.signOut();
