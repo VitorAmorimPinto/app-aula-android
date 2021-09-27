@@ -1,4 +1,4 @@
-package com.smash.apptestefirebase;
+ package com.smash.apptestefirebase;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,16 +37,61 @@ public class MainActivity extends AppCompatActivity {
 //        referencia.child cria um novo nó ou acessa um já existente
 //        o setValue atualiza ou cadastra o valor
 
-    this.cadComIndentificadorUnico();
+//    this.cadComIndentificadorUnico();
+    this.buscaFiltros();
 
+    }
+    public void buscaPorId(){
+        DatabaseReference pessoaPesquisa = pessoas.child("-Mk3epqPvoU_UNUI0O8b");
 
+//
+        pessoaPesquisa.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Recuperando dados em formato de objeto
+                /*Usuario dadosUsuario = dataSnapshot.getValue(Pessoa.class);
+                Log.i("Dados usuario: ", " nome: " + dadosUsuario.getNome() + " idade: " + dadosUsuario.getIdade() );*/
+
+                Log.i("Dados pessoa   : ", dataSnapshot.getValue().toString() );
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    public void buscaFiltros(){
+        DatabaseReference pessoaPesquisa = referencia.child("Pessoas");
+//   Para fazer consultas no Firebase é necessario ordenar primeiro
+//      Busca dado igual a... e ordenando por campo nome
+//        Query usuarioPesquisa = pessoas.orderByChild("nome").equalTo("Priscila");
+
+//     Ordena e exibe 3 usuários a partir do primeiro
+//        Query usuarioPesquisa = pessoas.orderByKey().limitToFirst(3);
+
+//     Ordena e exibe 3 usuários a partir do ultimo
+
+        Query usuarioPesquisa = pessoas.orderByKey().limitToLast(3);
+
+        usuarioPesquisa.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i("Dados igual    : ", dataSnapshot.getValue().toString() );
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void cadComIndentificadorUnico(){
         Pessoa p = new Pessoa();
         p.setNome("Vitor");
         p.setSobrenome("Amorim");
-// O push permite criar um identificador unico para cada usuário
+// O push permite criar um identificador unico para cada cadastro
         pessoas.push().setValue(p);
     }
     public void deslogarUsuario(){
