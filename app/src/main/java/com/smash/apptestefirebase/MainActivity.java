@@ -71,9 +71,19 @@ public class MainActivity extends AppCompatActivity {
 //        Query usuarioPesquisa = pessoas.orderByKey().limitToFirst(3);
 
 //     Ordena e exibe 3 usuários a partir do ultimo
+//        Query usuarioPesquisa = pessoas.orderByKey().limitToLast(3);
 
-        Query usuarioPesquisa = pessoas.orderByKey().limitToLast(3);
+//      Filtro do startAt(>=)
+//        Query usuarioPesquisa = pessoas.orderByChild("idade").startAt(40);
 
+//      Filtro do startAt(<=)
+//        Query usuarioPesquisa = pessoas.orderByChild("idade").endAt(40);
+
+//      Filtro entre dois valores(<=)
+//        Query usuarioPesquisa = pessoas.orderByChild("idade").startAt(18).endAt(30);
+
+//      Filtro de palavras
+        Query usuarioPesquisa = pessoas.orderByChild("nome").startAt("V").endAt("V" + "\uf8ff");
         usuarioPesquisa.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
